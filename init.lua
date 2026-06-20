@@ -606,7 +606,8 @@ require("lazy").setup({
 				-- Ruby
 				--sorbet = {},
 				-- Zig
-				zls = {},
+				--zls = {},
+				solidity = {},
 			}
 
 			-- Ensure the servers and tools above are installed
