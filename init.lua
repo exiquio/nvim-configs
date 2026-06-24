@@ -800,46 +800,52 @@ require("lazy").setup({
 		end,
 	},
 
-  { -- You can easily change to a different colorscheme.
-    -- Change the name of the colorscheme plugin below, and then
-    -- change the command in the config to whatever the name of that colorscheme is.
-    url = 'git@github.com:dracula-pro/vim.git',
-    lazy = false,
-    priority = 1000, -- Make sure to load this before all the other start plugins.
-
-    init = function()
-      -- Set global variables BEFORE the colorscheme loads
-      vim.g.dracula_colorterm = 0
-    end,
-
-    config = function()
-      -- Load the colorscheme here.
-      vim.cmd.colorscheme 'dracula_pro'
-    end,
-  },
-
-	--{ -- You can easily change to a different colorscheme.
+	{ -- You can easily change to a different colorscheme.
 		-- Change the name of the colorscheme plugin below, and then
 		-- change the command in the config to whatever the name of that colorscheme is.
-		--
-		-- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-		--"Mofiqul/dracula.nvim",
-		--priority = 100,
-		--init = function()
-		--	vim.cmd.colorscheme("dracula")
-		--end,
+		url = "git@github.com:dracula-pro/vim.git",
+		name = "dracula_pro",
+		lazy = false,
+		priority = 1000, -- Make sure to load this before all the other start plugins.
 
-		--'folke/tokyonight.nvim',
-		--priority = 1000, -- Make sure to load this before all the other start plugins.
-		--init = function()
-		-- Load the colorscheme here.
-		-- Like many other themes, this one has different styles, and you could load
-		-- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-		-- vim.cmd.colorscheme 'tokyonight-night'
+		init = function()
+			-- Set global variables BEFORE the colorscheme loads
+			vim.g.dracula_colorterm = 0
+		end,
 
-		-- You can configure highlights by doing something like:
-		--vim.cmd.hi 'Comment gui=none'
-		--end,
+		config = function()
+			-- Load the colorscheme here.
+			vim.cmd.colorscheme("dracula_pro")
+
+			-- Use an underline for Normal/Visual mode, and a vertical bar for Insert mode
+			vim.api.nvim_set_hl(0, "DraculaBrightCursor", { bg = "#50fa7b", fg = "#22212c" })
+			vim.opt.guicursor =
+				"n-v-c:hor20-DraculaBrightCursor-blinkwait300-blinkon300-blinkoff300,i-ci-ve:ver25-DraculaBrightCursor-blinkwait300-blinkon300-blinkoff300,r-cr:hor20-DraculaBrightCursor-blinkwait300-blinkon300-blinkoff300,o:hor50-DraculaBrightCursor"
+		end,
+	},
+
+	--{ -- You can easily change to a different colorscheme.
+	-- Change the name of the colorscheme plugin below, and then
+	-- change the command in the config to whatever the name of that colorscheme is.
+	--
+	-- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
+	--"Mofiqul/dracula.nvim",
+	--priority = 100,
+	--init = function()
+	--	vim.cmd.colorscheme("dracula")
+	--end,
+
+	--'folke/tokyonight.nvim',
+	--priority = 1000, -- Make sure to load this before all the other start plugins.
+	--init = function()
+	-- Load the colorscheme here.
+	-- Like many other themes, this one has different styles, and you could load
+	-- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
+	-- vim.cmd.colorscheme 'tokyonight-night'
+
+	-- You can configure highlights by doing something like:
+	--vim.cmd.hi 'Comment gui=none'
+	--end,
 	--},
 
 	-- Highlight todo, notes, etc in comments
