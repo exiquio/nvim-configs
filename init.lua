@@ -81,6 +81,11 @@ vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left wind
 vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
 vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
 vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
+-- CodeCompanion Keymaps (Kickstart Style)
+vim.keymap.set({ "n", "v" }, "<leader>ac", "<cmd>CodeCompanionChat Toggle<cr>", { desc = "[A]I [C]hat Toggle" })
+vim.keymap.set({ "n", "v" }, "<leader>aa", "<cmd>CodeCompanionActions<cr>", { desc = "[A]I [A]ctions Menu" })
+vim.keymap.set({ "n", "v" }, "<leader>ai", "<cmd>CodeCompanion<cr>", { desc = "[A]I [I]nline Prompt" })
+vim.keymap.set("v", "<leader>as", "<cmd>CodeCompanionChat Add<cr>", { desc = "[A]I [S]election to Chat" })
 
 -- [[ AUTOCOMMANDS ]]
 -- See `:help lua-guide-autocommands`
@@ -127,6 +132,43 @@ vim.opt.rtp:prepend(lazypath)
 -- * Use `opts = {}` to force a plugin to be loaded.
 
 require("lazy").setup({
+	-- CodeCompanion.nvim AI
+	{
+		"olimorris/codecompanion.nvim",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"nvim-treesitter/nvim-treesitter",
+		},
+		config = function()
+			require("codecompanion").setup({
+				adapters = {
+					gemini = function()
+						return require("codecompanion.adapters").extend("gemini", {
+							env = {
+								api_key = "GEMINI_API_KEY",
+							},
+							schema = {
+								model = {
+									default = "gemini-3.5-flash",
+								},
+								temperature = {
+									default = 0.1, -- Keeps logic precise and deterministic for auditing
+								},
+								max_output_tokens = {
+									default = 4096, -- Ensures ample headroom for multi-file refactors
+								},
+							},
+						})
+					end,
+				},
+				strategies = {
+					chat = { adapter = { name = "gemini", model = "gemini-3.5-flash" } },
+					inline = { adapter = { name = "gemini", model = "gemini-3.5-flash" } },
+					agent = { adapter = { name = "gemini", model = "gemini-3.5-flash" } },
+				},
+			})
+		end,
+	},
 	-- Detect tabstop and shiftwidth automatically
 	"tpope/vim-sleuth",
 
