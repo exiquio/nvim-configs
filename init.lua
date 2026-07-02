@@ -378,7 +378,7 @@ require("lazy").setup({
 				-- Python
 				basedpyright = {},
 				-- Solidity
-				solidity = {},
+				solidity_ls = {},
 			}
 
 			-- Ensure the servers and tools above are installed
@@ -455,6 +455,7 @@ require("lazy").setup({
 				javascript = { "eslint_d" },
 				lua = { "stylua" },
 				python = { "ruff" },
+				solidity = { "forge_fmt" },
 			},
 		},
 	},
@@ -624,6 +625,7 @@ require("lazy").setup({
 				"markdown",
 				"markdown_inline",
 				"python",
+				"solidity",
 			},
 			-- Autoinstall languages that are not installed
 			auto_install = true,
