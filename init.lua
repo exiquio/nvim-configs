@@ -132,6 +132,8 @@ vim.opt.rtp:prepend(lazypath)
 -- * Use `opts = {}` to force a plugin to be loaded.
 
 require("lazy").setup({
+	-- TODO: Modularize
+
 	-- CodeCompanion.nvim AI
 	{
 		"olimorris/codecompanion.nvim",
@@ -210,7 +212,7 @@ require("lazy").setup({
 	{
 		"nvim-telescope/telescope.nvim",
 		event = "VimEnter",
-		branch = "0.1.x",
+		--branch = "0.1.x",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			-- If encountering errors, see telescope-fzf-native README for installation instructions
@@ -435,6 +437,8 @@ require("lazy").setup({
 				"eslint_d",
 				-- Lua
 				"stylua",
+				-- Markdon
+				"mdformat",
 				-- Python
 				"ruff",
 			})
@@ -496,6 +500,7 @@ require("lazy").setup({
 			formatters_by_ft = {
 				javascript = { "eslint_d" },
 				lua = { "stylua" },
+				markdown = { "mdformat" },
 				python = { "ruff" },
 				solidity = { "forge_fmt" },
 			},
