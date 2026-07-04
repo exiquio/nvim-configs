@@ -399,10 +399,7 @@ require("lazy").setup({
 			local servers = {
 				-- See `:help lspconfig-all` for a list of all the pre-configured LSPs
 				-- Elixir
-				expert = {
-					cmd = { "expert", "--stdio" },
-					filetypes = { "elixir", "eelixir", "heex", "surface" },
-				},
+				expert = {},
 				-- Fish
 				fish_lsp = {},
 				-- JavaScript
@@ -444,6 +441,7 @@ require("lazy").setup({
 				"mdformat",
 				-- Python
 				"ruff",
+				"expert",
 			})
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
@@ -651,43 +649,43 @@ require("lazy").setup({
 			end
 		end,
 	},
-	{ -- Highlight, edit, and navigate code
-		"nvim-treesitter/nvim-treesitter",
-		build = ":TSUpdate",
-		opts = {
-			ensure_installed = {
-				"diff",
-				"eex", -- Required for Elixir
-				"elixir",
-				"fish",
-				"heex", -- Required for Elixir
-				"html",
-				"javascript",
-				"lua",
-				"luadoc",
-				"markdown",
-				"markdown_inline",
-				"python",
-				"solidity",
-			},
-			-- Autoinstall languages that are not installed
-			auto_install = true,
-			highlight = {
-				enable = true,
-				-- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
-				--  If you are experiencing weird indenting issues, add the language to
-				--  the list of additional_vim_regex_highlighting and disabled languages for indent.
-				additional_vim_regex_highlighting = false,
-			},
-			indent = {
-				enable = true,
-			},
-		},
-		config = function(_, opts)
-			-- [[ Configure Treesitter ]] See `:help nvim-treesitter`
 
-			---@diagnostic disable-next-line: missing-fields
-			require("nvim-treesitter.config").setup(opts)
+	-- Highlight, edit, and navigate code
+	{
+		"nvim-treesitter/nvim-treesitter",
+		branch = "master",
+		build = ":TSUpdate",
+		config = function()
+			local configs = require("nvim-treesitter.configs")
+
+			configs.setup({
+				ensure_installed = {
+					"diff",
+					"eex", -- Required for Elixir
+					"elixir",
+					"fish",
+					"heex", -- Required for Elixir
+					"html",
+					"javascript",
+					"lua",
+					"luadoc",
+					"markdown",
+					"markdown_inline",
+					"python",
+					"solidity",
+				},
+				auto_install = true,
+				highlight = {
+					enable = true,
+					-- Some languages depend on vim's regex highlighting system and Neovim's
+					-- internal regex engine. This can cause slow downs on large files.
+					additional_vim_regex_highlighting = { "ruby" },
+				},
+				indent = { enable = true, disable = { "ruby" } },
+				sync_install = false,
+				ignore_install = {},
+				modules = {},
+			})
 		end,
 	},
 
