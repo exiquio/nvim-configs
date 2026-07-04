@@ -17,7 +17,6 @@ require("config.autocommands")
 -- [[ PLUGINS ]]
 -- Using Neovim's native package manager (pack)
 local pack_path = vim.fn.stdpath("data") .. "/site/pack/plugins/start"
---local pack_path = vim.fn.stdpath("data") .. "/pack/plugins/start"
 
 local function bootstrap_pack(plugins_list)
 	local github_prefix = "https://github.com/"
@@ -45,7 +44,6 @@ local function bootstrap_pack(plugins_list)
 			})
 		end
 		-- Load the plugin instantly into Neovim's runtimepath
-		--pcall(vim.cmd, "packadd " .. name)
 		vim.opt.runtimepath:prepend(install_path)
 	end
 end
