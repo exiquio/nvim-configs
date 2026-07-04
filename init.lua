@@ -653,38 +653,26 @@ require("lazy").setup({
 	-- Highlight, edit, and navigate code
 	{
 		"nvim-treesitter/nvim-treesitter",
-		branch = "master",
+		--branch = "master",
+		brach = "main",
 		build = ":TSUpdate",
 		config = function()
-			local configs = require("nvim-treesitter.configs")
+			require("nvim-treesitter").setup()
 
-			configs.setup({
-				ensure_installed = {
-					"diff",
-					"eex", -- Required for Elixir
-					"elixir",
-					"fish",
-					"heex", -- Required for Elixir
-					"html",
-					"javascript",
-					"lua",
-					"luadoc",
-					"markdown",
-					"markdown_inline",
-					"python",
-					"solidity",
-				},
-				auto_install = true,
-				highlight = {
-					enable = true,
-					-- Some languages depend on vim's regex highlighting system and Neovim's
-					-- internal regex engine. This can cause slow downs on large files.
-					additional_vim_regex_highlighting = { "ruby" },
-				},
-				indent = { enable = true, disable = { "ruby" } },
-				sync_install = false,
-				ignore_install = {},
-				modules = {},
+			require("nvim-treesitter").install({
+				"diff",
+				"eex", -- Required for Elixir
+				"elixir",
+				"fish",
+				"heex", -- Required for Elixir
+				"html",
+				"javascript",
+				"lua",
+				"luadoc",
+				"markdown",
+				"markdown_inline",
+				"python",
+				"solidity",
 			})
 		end,
 	},
