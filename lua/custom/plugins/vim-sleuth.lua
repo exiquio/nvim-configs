@@ -1,4 +1,8 @@
-return {
-	-- Detect tabstop and shiftwidth automatically
-	{ "tpope/vim-sleuth" },
+local M = {}
+
+-- Plugins/dependencies to clone
+M.plugins = {
+	"tpope/vim-sleuth",
 }
+
+return M
