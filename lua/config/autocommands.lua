@@ -8,3 +8,28 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 		vim.highlight.on_yank()
 	end,
 })
+
+-- Highlight when 120 characers is exceeded.
+local limit = 120
+local group = vim.api.nvim_create_augroup("DynamicColorColumn", { clear = true })
+
+vim.api.nvim_create_autocmd({ "BufWinEnter", "TextChanged", "TextChangedI" }, {
+	group = group,
+	pattern = "*",
+	callback = function()
+		local max_len = 0
+		local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+
+		for _, line in ipairs(lines) do
+			if #line > max_len then
+				max_len = #line
+			end
+		end
+
+		if max_len > limit then
+			vim.opt_local.colorcolumn = tostring(limit)
+		else
+			vim.opt_local.colorcolumn = ""
+		end
+	end,
+})

@@ -49,8 +49,3 @@ require("lazy").setup({
 		},
 	},
 })
-
--- [[ MISC. ]]
-
--- Override the default colorcolumn to a subtle Dracula Pro dark purple-gray
-vim.api.nvim_set_hl(0, "ColorColumn", { bg = "#5c4ade" })
