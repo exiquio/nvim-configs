@@ -398,6 +398,11 @@ require("lazy").setup({
 			-- Enable the following language servers
 			local servers = {
 				-- See `:help lspconfig-all` for a list of all the pre-configured LSPs
+				-- Elixir
+				expert = {
+					cmd = { "expert", "--stdio" },
+					filetypes = { "elixir", "eelixir", "heex", "surface" },
+				},
 				-- Fish
 				fish_lsp = {},
 				-- JavaScript
@@ -417,8 +422,6 @@ require("lazy").setup({
 						},
 					},
 				},
-				-- Move
-				-- HACK: See hack in 'mason-lspconfig' setup block.
 				-- Python
 				basedpyright = {},
 				-- Solidity
@@ -456,20 +459,8 @@ require("lazy").setup({
 					end,
 				},
 			})
-
-			-- HACK: Implements native Move/Sui configuration bypassing Mason
-			vim.lsp.config.sui_move_analyzer = {
-				cmd = { "sui-move-analyzer" },
-				filetypes = { "move" },
-				root_markers = { "Move.toml", ".git" },
-				capabilities = capabilities,
-			}
-			vim.lsp.enable("sui_move_analyzer")
 		end,
 	},
-
-	-- HACK: Move syntax hightlighing.
-	{ "yanganto/move.vim", branch = "sui-move" },
 
 	-- Autoformat
 	{
@@ -498,6 +489,8 @@ require("lazy").setup({
 				}
 			end,
 			formatters_by_ft = {
+				elixir = { "mix" },
+				heex = { "mix" },
 				javascript = { "eslint_d" },
 				lua = { "stylua" },
 				markdown = { "mdformat" },
@@ -664,7 +657,10 @@ require("lazy").setup({
 		opts = {
 			ensure_installed = {
 				"diff",
+				"eex", -- Required for Elixir
+				"elixir",
 				"fish",
+				"heex", -- Required for Elixir
 				"html",
 				"javascript",
 				"lua",
@@ -681,11 +677,10 @@ require("lazy").setup({
 				-- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
 				--  If you are experiencing weird indenting issues, add the language to
 				--  the list of additional_vim_regex_highlighting and disabled languages for indent.
-				additional_vim_regex_highlighting = { "ruby" },
+				additional_vim_regex_highlighting = false,
 			},
 			indent = {
 				enable = true,
-				disable = { "move", "ruby" },
 			},
 		},
 		config = function(_, opts)
