@@ -7,9 +7,11 @@ M.plugins = {
 
 -- Configuration to run after packages are cloned
 M.config = function()
-	require("nvim-treesitter").setup()
+	local ts = require("nvim-treesitter")
+	ts.setup()
 
-	require("nvim-treesitter").install({
+	-- Safe automatic installation of missing parsers
+	local parsers = {
 		"diff",
 		"eex", -- Required for Elixir
 		"elixir",
@@ -23,7 +25,19 @@ M.config = function()
 		"markdown_inline",
 		"python",
 		"solidity",
-	})
+	}
+
+	local installed = ts.get_installed()
+	local to_install = {}
+	for _, p in ipairs(parsers) do
+		if not vim.list_contains(installed, p) then
+			table.insert(to_install, p)
+		end
+	end
+
+	if #to_install > 0 then
+		ts.install(to_install)
+	end
 end
 
 return M

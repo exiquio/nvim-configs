@@ -33,3 +33,15 @@ vim.api.nvim_create_autocmd({ "BufWinEnter", "TextChanged", "TextChangedI" }, {
 		end
 	end,
 })
+
+-- Automatically start Treesitter highlighting and indentation when a parser is available
+vim.api.nvim_create_autocmd("FileType", {
+	group = vim.api.nvim_create_augroup("treesitter-setup", { clear = true }),
+	callback = function(ev)
+		local lang = vim.treesitter.language.get_lang(vim.bo[ev.buf].filetype) or vim.bo[ev.buf].filetype
+		local ok = pcall(vim.treesitter.start, ev.buf, lang)
+		if ok then
+			vim.bo[ev.buf].indentexpr = "v:lua.require('nvim-treesitter').indentexpr()"
+		end
+	end,
+})
