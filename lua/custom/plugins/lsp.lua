@@ -105,7 +105,7 @@ M.config = function()
 			},
 		},
 		basedpyright = {},
-		solidity_ls_nomicfoundation = {},
+		solidity = {},
 		harper_ls = {},
 	}
 
