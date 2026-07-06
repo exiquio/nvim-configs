@@ -25,29 +25,30 @@ M.config = function()
 	vim.api.nvim_create_autocmd("LspAttach", {
 		group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
 		callback = function(event)
-			local map = function(keys, func, desc)
-				vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
+			local map = function(keys, func, desc, mode)
+				mode = mode or "n"
+				vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
 			end
 
 			-- Jump to the definition of the word under your cursor. To jump back, press <C-t>.
-			map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
+			map("grd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
 			-- Find references for the word under your cursor.
-			map("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
+			map("grr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
 			-- Jump to the implementation of the word under your cursor.
-			map("gI", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
+			map("gri", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
 			-- Jump to the type of the word under your cursor.
-			map("<leader>D", require("telescope.builtin").lsp_type_definitions, "Type [D]efinition")
+			map("grt", require("telescope.builtin").lsp_type_definitions, "[G]oto [T]ype Definition")
 			-- Fuzzy find all the symbols in your current document.
-			map("<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
+			map("gO", require("telescope.builtin").lsp_document_symbols, "Open Document Symbols")
 			-- Fuzzy find all the symbols in your current workspace.
-			map("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
+			map("gW", require("telescope.builtin").lsp_dynamic_workspace_symbols, "Open Workspace Symbols")
 			-- Rename the variable under your cursor.
-			map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
+			map("grn", vim.lsp.buf.rename, "[R]e[n]ame")
 			-- Execute a code action, usually your cursor needs to be on top of an error
 			-- or a suggestion from your LSP for this to activate.
-			map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+			map("gra", vim.lsp.buf.code_action, "[G]oto Code [A]ction", { "n", "x" })
 			--  Jump to declaration
-			map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
+			map("grD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
 
 			-- Highlight references under cursor
 			local client = vim.lsp.get_client_by_id(event.data.client_id)
@@ -121,15 +122,13 @@ M.config = function()
 	})
 	require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
-	require("mason-lspconfig").setup({
-		handlers = {
-			function(server_name)
-				local server = servers[server_name] or {}
-				server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-				require("lspconfig")[server_name].setup(server)
-			end,
-		},
-	})
+	require("mason-lspconfig").setup()
+
+	for name, server in pairs(servers) do
+		server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+		vim.lsp.config(name, server)
+		vim.lsp.enable(name)
+	end
 end
 
 return M
