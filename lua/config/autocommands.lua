@@ -41,7 +41,11 @@ vim.api.nvim_create_autocmd("FileType", {
 		local lang = vim.treesitter.language.get_lang(vim.bo[ev.buf].filetype) or vim.bo[ev.buf].filetype
 		local ok = pcall(vim.treesitter.start, ev.buf, lang)
 		if ok then
-			vim.bo[ev.buf].indentexpr = "v:lua.require('nvim-treesitter').indentexpr()"
+			if vim.bo[ev.buf].filetype == "solidity" then
+				vim.bo[ev.buf].cindent = true
+			else
+				vim.bo[ev.buf].indentexpr = "v:lua.require('nvim-treesitter').indentexpr()"
+			end
 		end
 	end,
 })
