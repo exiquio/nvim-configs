@@ -1,3 +1,6 @@
+-- [[ vim.loader ]]
+vim.loader.enable()
+
 -- [[ GLOBALS ]]
 
 -- Leader key
