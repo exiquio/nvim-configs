@@ -57,6 +57,39 @@ local custom_plugins = require("custom.plugins")
 -- Clone plugins and inject into runtimepath
 bootstrap_pack(custom_plugins.plugins)
 
+-- Automatically clean up plugins that are no longer in the configuration list
+local function cleanup_unused_plugins(plugins_list)
+	local active_names = {}
+	for _, plugin in ipairs(plugins_list) do
+		local name
+		if type(plugin) == "string" then
+			name = plugin:match(".*/(.*)")
+		elseif type(plugin) == "table" then
+			name = plugin.name or plugin[1]:match(".*/(.*)")
+		end
+		if name then
+			active_names[name] = true
+		end
+	end
+
+	local handle = vim.uv.fs_scandir(pack_path)
+	if handle then
+		while true do
+			local name, fs_type = vim.uv.fs_scandir_next(handle)
+			if not name then
+				break
+			end
+			if fs_type == "directory" and not active_names[name] then
+				local dir_to_delete = pack_path .. "/" .. name
+				vim.api.nvim_echo({ { "Removing unused plugin: " .. name .. "\n", "WarningMsg" } }, true, {})
+				vim.fn.delete(dir_to_delete, "rf")
+			end
+		end
+	end
+end
+
+cleanup_unused_plugins(custom_plugins.plugins)
+
 -- Execute each plugin's setup config
 for _, config_fn in ipairs(custom_plugins.configs) do
 	local ok, err = pcall(config_fn)
