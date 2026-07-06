@@ -20,11 +20,10 @@ require("config.autocommands")
 -- [[ PLUGINS ]]
 -- Using Neovim's native package manager (pack)
 local pack_path = vim.fn.stdpath("data") .. "/site/pack/plugins/start"
-
 local function bootstrap_pack(plugins_list)
 	local github_prefix = "https://github.com/"
 	for _, plugin in ipairs(plugins_list) do
-		local repo, name, url
+		local repo, name, url, branch
 		if type(plugin) == "string" then
 			repo = plugin
 			name = plugin:match(".*/(.*)")
@@ -33,18 +32,24 @@ local function bootstrap_pack(plugins_list)
 			repo = plugin[1]
 			name = plugin.name or repo:match(".*/(.*)")
 			url = plugin.url or (github_prefix .. repo .. ".git")
+			branch = plugin.branch or plugin.tag
 		end
 
 		local install_path = pack_path .. "/" .. name
 		if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
 			vim.api.nvim_echo({ { "Cloning " .. (repo or name) .. "...", "Type" } }, true, {})
-			vim.fn.system({
+			local clone_cmd = {
 				"git",
 				"clone",
 				"--filter=blob:none",
-				url,
-				install_path,
-			})
+			}
+			if branch then
+				table.insert(clone_cmd, "--branch")
+				table.insert(clone_cmd, branch)
+			end
+			table.insert(clone_cmd, url)
+			table.insert(clone_cmd, install_path)
+			vim.fn.system(clone_cmd)
 		end
 		-- Load the plugin instantly into Neovim's runtimepath
 		vim.opt.runtimepath:prepend(install_path)
