@@ -25,6 +25,7 @@ M.config = function()
 		"markdown_inline",
 		"python",
 		"solidity",
+		"yaml",
 	}
 
 	local installed = ts.get_installed()
