@@ -21,7 +21,13 @@ M.config = function()
 							default = "deepseek-v4-flash",
 						},
 						temperature = {
-							default = 0.1, -- Keeps logic precise and deterministic for auditing
+							default = 0,
+						},
+						max_tokens = {
+							default = 8192,
+						},
+						top_p = {
+							default = 1,
 						},
 					},
 				})
@@ -30,7 +36,7 @@ M.config = function()
 		strategies = {
 			chat = { adapter = { name = "deepseek", model = "deepseek-v4-flash" } },
 			inline = { adapter = { name = "deepseek", model = "deepseek-v4-flash" } },
-			agent = { adapter = { name = "deepseek", model = "deepseek-v4-flash" } },
+			agent = { adapter = { name = "deepseek", model = "deepseek-v4-pro" } },
 		},
 	})
 end
