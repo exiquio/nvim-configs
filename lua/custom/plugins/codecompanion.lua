@@ -34,7 +34,7 @@ M.config = function()
 			end,
 		},
 		strategies = {
-			chat = { adapter = { name = "deepseek", model = "deepseek-v4-flash" } },
+			chat = { adapter = { name = "deepseek", model = "deepseek-v4-pro" } },
 			inline = { adapter = { name = "deepseek", model = "deepseek-v4-flash" } },
 			agent = { adapter = { name = "deepseek", model = "deepseek-v4-pro" } },
 		},
