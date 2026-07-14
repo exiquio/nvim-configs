@@ -108,7 +108,17 @@ M.config = function()
 		solidity_ls_nomicfoundation = {
 			includePath = "lib",
 		},
-		harper_ls = {},
+		harper_ls = {
+			filetypes = {
+				"git-commit",
+				"javascript",
+				"lua",
+				"markdown",
+				"python",
+				"solidity",
+				"toml",
+			},
+		},
 	}
 
 	-- 5. Install servers and tools with Mason
