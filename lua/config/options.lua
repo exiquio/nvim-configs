@@ -40,3 +40,5 @@ vim.opt.inccommand = "split"
 vim.opt.cursorline = true
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
+-- Disable native spellcheck (use harper_ls instead)
+vim.opt.spell = false
