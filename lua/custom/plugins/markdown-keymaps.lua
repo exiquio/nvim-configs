@@ -10,18 +10,16 @@ local function wrap(open, close)
       vim.cmd("normal! y") -- yank selection to unnamed register
       -- Feed: exit visual, reselect, change, type open, paste from register, type close, <Esc>
       vim.api.nvim_feedkeys(
-        vim.api.nvim_replace_termcodes(
-          "<Esc>gvc" .. open .. "<C-r>\"" .. close .. "<Esc>", true, false, true
-        ),
-        "n", false
+        vim.api.nvim_replace_termcodes("<Esc>gvc" .. open .. '<C-r>"' .. close .. "<Esc>", true, false, true),
+        "n",
+        false
       )
     else
       vim.cmd("normal! yiw") -- yank inner word
       vim.api.nvim_feedkeys(
-        vim.api.nvim_replace_termcodes(
-          "ciw" .. open .. "<C-r>\"" .. close .. "<Esc>", true, false, true
-        ),
-        "n", false
+        vim.api.nvim_replace_termcodes("ciw" .. open .. '<C-r>"' .. close .. "<Esc>", true, false, true),
+        "n",
+        false
       )
     end
   end
@@ -54,7 +52,12 @@ M.config = function()
   vim.keymap.set({ "n", "v" }, "<leader>mc", wrap("`", "`"), vim.tbl_extend("force", opts, { desc = "[C]ode" }))
 
   -- Strikethrough: ~~text~~
-  vim.keymap.set({ "n", "v" }, "<leader>ms", wrap("~~", "~~"), vim.tbl_extend("force", opts, { desc = "[S]trikethrough" }))
+  vim.keymap.set(
+    { "n", "v" },
+    "<leader>ms",
+    wrap("~~", "~~"),
+    vim.tbl_extend("force", opts, { desc = "[S]trikethrough" })
+  )
 
   -- Link: inserts [text](url) and selects the url placeholder for you to type
   vim.keymap.set({ "n", "v" }, "<leader>ml", function()
@@ -62,18 +65,16 @@ M.config = function()
     if mode == "v" or mode == "V" or mode == "\22" then
       vim.cmd("normal! y")
       vim.api.nvim_feedkeys(
-        vim.api.nvim_replace_termcodes(
-          "<Esc>gvc[<C-r>\"](url)<Esc>F(lviw", true, false, true
-        ),
-        "n", false
+        vim.api.nvim_replace_termcodes('<Esc>gvc[<C-r>"](url)<Esc>F(lviw', true, false, true),
+        "n",
+        false
       )
     else
       vim.cmd("normal! yiw")
       vim.api.nvim_feedkeys(
-        vim.api.nvim_replace_termcodes(
-          "ciw[<C-r>\"](url)<Esc>F(lviw", true, false, true
-        ),
-        "n", false
+        vim.api.nvim_replace_termcodes('ciw[<C-r>"](url)<Esc>F(lviw', true, false, true),
+        "n",
+        false
       )
     end
   end, vim.tbl_extend("force", opts, { desc = "[L]ink" }))
