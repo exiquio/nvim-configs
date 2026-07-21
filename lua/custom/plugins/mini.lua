@@ -13,8 +13,17 @@ M.config = function()
 	-- Add/delete/replace surroundings (brackets, quotes, etc.)
 	require("mini.surround").setup()
 
+	-- Visual indent guides and scope highlighting
+	require("mini.indentscope").setup()
+
 	-- Central icon provider for all plugins
 	require("mini.icons").setup()
+
+	-- File explorer (two-pane, keyboard-driven)
+	require("mini.files").setup()
+	vim.keymap.set("n", "<leader>e", function()
+		MiniFiles.open()
+	end, { desc = "[E]xplore files" })
 
 	-- Simple and easy statusline.
 	local statusline = require("mini.statusline")

@@ -10,6 +10,7 @@ M.config = function()
 	require("which-key").setup()
 
 	require("which-key").add({
+		{ "<leader>m", group = "[M]arkdown" },
 		{ "<leader>c", group = "[C]ode" },
 		{ "<leader>d", group = "[D]ocument" },
 		{ "<leader>r", group = "[R]ename" },

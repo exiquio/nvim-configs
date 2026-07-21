@@ -3,8 +3,6 @@ local M = {}
 -- Plugins/dependencies to clone
 M.plugins = {
 	"olimorris/codecompanion.nvim",
-	"nvim-lua/plenary.nvim",
-	"nvim-treesitter/nvim-treesitter",
 }
 
 -- Configuration to run after packages are cloned
