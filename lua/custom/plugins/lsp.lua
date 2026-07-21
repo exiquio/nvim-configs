@@ -84,15 +84,17 @@ M.config = function()
 		end,
 	})
 
-	-- 4. Capabilities setup
+	-- 4. Attach blink.cmp completions to LSP
 	local capabilities = vim.lsp.protocol.make_client_capabilities()
 	capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
 
 	-- Enable language servers
 	local servers = {
+		-- Elixir
 		expert = {},
+		-- Fish
 		fish_lsp = {},
-		vtsls = {},
+		-- Lua
 		lua_ls = {
 			capabilities = {},
 			settings = {
@@ -104,10 +106,13 @@ M.config = function()
 				},
 			},
 		},
+		-- Python
 		basedpyright = {},
+		-- Solidity
 		solidity_ls_nomicfoundation = {
 			includePath = "lib",
 		},
+		-- Spell / Grammar
 		harper_ls = {
 			filetypes = {
 				"git-commit",
@@ -119,6 +124,8 @@ M.config = function()
 				"toml",
 			},
 		},
+		-- TypeScript
+		vtsls = {},
 	}
 
 	-- 5. Install servers and tools with Mason
@@ -126,11 +133,14 @@ M.config = function()
 
 	local ensure_installed = vim.tbl_keys(servers or {})
 	vim.list_extend(ensure_installed, {
+		-- JavaScript
 		"eslint_d",
+		-- Lua
 		"stylua",
+		-- Markdown
 		"mdformat",
+		-- Python
 		"ruff",
-		"expert",
 	})
 	require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 

@@ -1,6 +1,4 @@
--- [[ AUTOCOMMANDS ]]
-
--- Highlight when yanking (copying) text
+-- Highlight yanked text
 vim.api.nvim_create_autocmd("TextYankPost", {
 	desc = "Highlight when yanking (copying) text",
 	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
@@ -9,7 +7,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	end,
 })
 
--- Highlight when 120 characers is exceeded.
+-- Show colorcolumn when any line exceeds 120 chars
 local limit = 120
 local group = vim.api.nvim_create_augroup("DynamicColorColumn", { clear = true })
 
@@ -34,7 +32,7 @@ vim.api.nvim_create_autocmd({ "BufWinEnter", "TextChanged", "TextChangedI" }, {
 	end,
 })
 
--- Automatically start Treesitter highlighting and indentation when a parser is available
+-- Start Treesitter highlighting/indentation when parser is available
 vim.api.nvim_create_autocmd("FileType", {
 	group = vim.api.nvim_create_augroup("treesitter-setup", { clear = true }),
 	callback = function(ev)
@@ -53,14 +51,12 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
--- CodeCompanion indicator
-
--- Define Dracula Pro highlight colors
+-- CodeCompanion spinner: highlight groups
 vim.api.nvim_set_hl(0, "DraculaPink", { fg = "#ff79c6", bold = true })
 vim.api.nvim_set_hl(0, "DraculaCyan", { fg = "#8be9fd", bold = true })
 vim.api.nvim_set_hl(0, "DraculaGreen", { fg = "#50fa7b", bold = true })
 
--- CodeCompanion spinner feedback
+-- CodeCompanion spinner: start / stop logic
 local spinner_timer = nil
 local spinner_frames = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
 local spinner_idx = 1

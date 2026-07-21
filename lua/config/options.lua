@@ -1,44 +1,33 @@
--- Options
--- See `:help vim.opt`
--- For more options, you can see `:help option-list`
-
--- Indentation settings
+-- Indentation
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
--- Enable line numbers
 vim.opt.number = true
--- Enable mouse mode
 vim.opt.mouse = "a"
--- Disabled showmode because our status line makes it redundant
+-- showmode is redundant with statusline
 vim.opt.showmode = false
--- Sync OS and Neovim clipboads
+-- Sync OS and Neovim clipboards
 vim.schedule(function()
 	vim.opt.clipboard = "unnamedplus"
 end)
--- Enable break indent
 vim.opt.breakindent = true
--- Save undo history
 vim.opt.undofile = true
--- Enable sign column
 vim.opt.signcolumn = "yes"
--- Decrease update time
+-- Faster CursorHold and swapfile writes
 vim.opt.updatetime = 250
--- Decrease mapped sequence wait time
--- Displays which-key popup sooner
+-- Faster which-key popup
 vim.opt.timeoutlen = 300
--- Configure how new splits should be opened
+-- Open splits to the right and below
 vim.opt.splitright = true
 vim.opt.splitbelow = true
--- Sets how neovim will display certain whitespace characters in the editor.
+-- Show whitespace characters
 vim.opt.list = true
 vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
--- Preview substitutions
+-- Live preview of substitutions
 vim.opt.inccommand = "split"
--- Show cursor line
 vim.opt.cursorline = true
--- Minimal number of screen lines to keep above and below the cursor.
+-- Keep 10 lines of context around cursor
 vim.opt.scrolloff = 10
--- Disable native spellcheck (use harper_ls instead)
+-- Use harper_ls instead of built-in spellcheck
 vim.opt.spell = false

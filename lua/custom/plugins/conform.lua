@@ -7,12 +7,10 @@ M.plugins = {
 
 -- Configuration to run after packages are cloned
 M.config = function()
-	-- Keymaps
 	vim.keymap.set({ "n", "v" }, "<leader>f", function()
 		require("conform").format({ async = true, lsp_fallback = true })
 	end, { desc = "[F]ormat buffer" })
 
-	-- Setup Conform
 	require("conform").setup({
 		notify_on_error = false,
 		format_on_save = function(bufnr)
@@ -24,12 +22,19 @@ M.config = function()
 			}
 		end,
 		formatters_by_ft = {
+			-- Elixir
 			elixir = { "mix" },
+			-- Elixir (HEEx)
 			heex = { "mix" },
+			-- JavaScript
 			javascript = { "eslint_d" },
+			-- Lua
 			lua = { "stylua" },
+			-- Markdown
 			markdown = { "mdformat" },
+			-- Python
 			python = { "ruff" },
+			-- Solidity
 			solidity = { "forge_fmt" },
 		},
 	})

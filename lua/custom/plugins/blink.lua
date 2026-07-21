@@ -6,10 +6,8 @@ M.plugins = {
 }
 
 M.config = function()
-	-- snippet engine setup
 	require("luasnip").setup({})
 
-	-- autocomplete engine setup
 	require("blink.cmp").setup({
 		keymap = {
 			preset = "default",
@@ -27,7 +25,13 @@ M.config = function()
 		},
 
 		sources = {
-			default = { "lsp", "path", "snippets" },
+			default = { "lsp", "path", "snippets", "todo-keywords" },
+			providers = {
+				["todo-keywords"] = {
+					name = "todo-keywords",
+					module = "custom.blink.todo-keywords",
+				},
+			},
 		},
 
 		snippets = { preset = "luasnip" },

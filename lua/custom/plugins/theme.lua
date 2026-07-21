@@ -7,10 +7,9 @@ M.plugins = {
 
 -- Configuration to run after packages are cloned
 M.config = function()
-	-- Set global variables BEFORE the colorscheme loads
+	-- Must be set before colorscheme loads
 	vim.g.dracula_colorterm = 0
 
-	-- Load the colorscheme here.
 	vim.cmd.colorscheme("dracula_pro")
 
 	-- Use an underline for Normal/Visual mode, and a vertical bar for Insert mode
