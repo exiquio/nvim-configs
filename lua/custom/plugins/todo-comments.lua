@@ -8,17 +8,16 @@ M.plugins = {
 -- Configuration to run after packages are cloned
 M.config = function()
 	require("todo-comments").setup({
-		signs = false,
+		signs = true,
 		keywords = {
-			AUDIT = { icon = " ", color = "info" },
-			AUDIT_INFO = { icon = " ", color = "hint" },
-			AUDIT_OK = { icon = " ", color = "test" },
-			AUDIT_WARN = { icon = " ", color = "warning" },
-			AUDIT_FAIL = { icon = " ", color = "error" },
-			AUDIT_FIX = { icon = " ", color = "error" },
-			AUDIT_TODO = { icon = " ", color = "info" },
-			AUDIT_NOTE = { icon = " ", color = "hint" },
-			AUDIT_QUESTION = { icon = " ", color = "hint" },
+			["audit-info"] = { icon = " ", color = "hint" },
+			["audit-ok"] = { icon = " ", color = "test" },
+			["audit-warn"] = { icon = " ", color = "warning" },
+			["audit-fail"] = { icon = " ", color = "error" },
+			["audit-fix"] = { icon = " ", color = "error" },
+			["audit-todo"] = { icon = " ", color = "info" },
+			["audit-note"] = { icon = " ", color = "hint" },
+			["audit-question"] = { icon = " ", color = "hint" },
 		},
 	})
 end
