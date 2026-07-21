@@ -13,6 +13,9 @@ M.config = function()
 	-- Add/delete/replace surroundings (brackets, quotes, etc.)
 	require("mini.surround").setup()
 
+	-- Central icon provider for all plugins
+	require("mini.icons").setup()
+
 	-- Simple and easy statusline.
 	local statusline = require("mini.statusline")
 	-- set use_icons to true if you have a Nerd Font

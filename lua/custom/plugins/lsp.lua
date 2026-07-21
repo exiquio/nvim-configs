@@ -124,6 +124,10 @@ M.config = function()
 				"toml",
 			},
 		},
+		-- Markdown: links, references, heading nav, TOC
+		marksman = {
+			filetypes = { "markdown", "mdx" },
+		},
 		-- TypeScript
 		vtsls = {},
 	}
@@ -139,6 +143,8 @@ M.config = function()
 		"stylua",
 		-- Markdown
 		"mdformat",
+		"markdownlint-cli2",
+		"marksman",
 		-- Python
 		"ruff",
 	})
