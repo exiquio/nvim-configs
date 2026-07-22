@@ -1,6 +1,9 @@
 -- Clear highlights on search when pressing <Esc> in normal mode
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
+-- Open default file explorer (netrw)
+vim.keymap.set("n", "<leader>e", "<cmd>Explore<CR>", { desc = "[E]xplore files" })
+
 -- Diagnostic keymaps
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
 
