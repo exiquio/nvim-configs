@@ -9,7 +9,7 @@ vim.opt.mouse = "a"
 vim.opt.showmode = false
 -- Sync OS and Neovim clipboards
 vim.schedule(function()
-  vim.opt.clipboard = "unnamedplus"
+	vim.opt.clipboard = "unnamedplus"
 end)
 vim.opt.breakindent = true
 vim.opt.undofile = true
@@ -29,3 +29,5 @@ vim.opt.inccommand = "split"
 vim.opt.cursorline = true
 -- Keep 10 lines of context around cursor
 vim.opt.scrolloff = 10
+-- Disable spellcheck
+vim.opt.spell = false
