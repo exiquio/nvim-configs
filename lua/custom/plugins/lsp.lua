@@ -112,18 +112,6 @@ M.config = function()
     solidity_ls_nomicfoundation = {
       includePath = "lib",
     },
-    -- Spell / Grammar
-    harper_ls = {
-      filetypes = {
-        "git-commit",
-        "javascript",
-        "lua",
-        "markdown",
-        "python",
-        "solidity",
-        "toml",
-      },
-    },
     -- Markdown: links, references, heading nav, TOC
     marksman = {
       filetypes = { "markdown", "mdx" },

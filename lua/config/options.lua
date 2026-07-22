@@ -29,5 +29,3 @@ vim.opt.inccommand = "split"
 vim.opt.cursorline = true
 -- Keep 10 lines of context around cursor
 vim.opt.scrolloff = 10
--- Use harper_ls instead of built-in spellcheck
-vim.opt.spell = false

@@ -21,8 +21,3 @@ vim.keymap.set({ "n", "v" }, "<leader>ac", "<cmd>CodeCompanionChat Toggle<cr>", 
 vim.keymap.set({ "n", "v" }, "<leader>aa", "<cmd>CodeCompanionActions<cr>", { desc = "[A]I [A]ctions Menu" })
 vim.keymap.set({ "n", "v" }, "<leader>ai", "<cmd>CodeCompanion<cr>", { desc = "[A]I [I]nline Prompt" })
 vim.keymap.set("v", "<leader>as", "<cmd>CodeCompanionChat Add<cr>", { desc = "[A]I [S]election to Chat" })
-
--- Harper LSP: open code actions / suggestions
-vim.keymap.set("n", "<leader>z", function()
-	vim.lsp.buf.code_action()
-end, { desc = "Harper fix" })
