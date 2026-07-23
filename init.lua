@@ -21,6 +21,7 @@ vim.g.loaded_ruby_provider = 0
 require("config.options")
 require("config.keymaps")
 require("config.autocommands")
+require("config.autoreload").setup()
 
 -- [[ PLUGINS ]]
 -- Using Neovim's native package manager (pack)
